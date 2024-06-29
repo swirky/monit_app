@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Konfiguracja alertów{% endblock %}
+
+{% block content %}
+<h1>Tabela danych</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Data i czas</th>
+            <th scope="col">Temperatura czujnika 1 (°C)</th>
+            <th scope="col">Temperatura czujnika 2 (°C)</th>
+            <th scope="col">Wilgotność (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in data_history %}
+        <tr>
+            <td>{{ entry['datetime'] }}</td>
+            <td>{{ entry['temperature1'] }}</td>
+            <td>{{ entry['temperature2'] }}</td>
+            <td>{{ entry['humidity'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Temperatura i Wilgotność{% endblock %}
+
+{% block content %}
+    <h1>Aktualne dane:</h1>
+    <div class="data">
+        <p>Temperatura nr 1: <span id="temperature1">--</span> °C</p>
+        <p>Temperatura nr 2: <span id="temperature2">--</span> °C</p>
+
+        <p>Wilgotność: <span id="humidity">--</span> %</p>
+        <p>Aktualna data i godzina: <span id="datetime">--</span></p>
+    </div>
+
+    <script>
+        function updateData() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('temperature1').textContent = data.temperature1;
+                    document.getElementById('temperature2').textContent = data.temperature2;
+                    document.getElementById('humidity').textContent = data.humidity;
+                    document.getElementById('datetime').textContent = data.current_datetime;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Aktualizuj dane co 3 sekundy
+        setInterval(updateData, 3000);
+
+        // Początkowe załadowanie danych
+        updateData();
+    </script>
+{% endblock %}
